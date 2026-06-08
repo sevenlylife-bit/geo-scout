@@ -105,17 +105,6 @@
         <div class="field"><label>City / region</label><input type="text" id="bloc" placeholder="Regina, Saskatchewan"/></div>
         <div class="field"><label>Service type</label><input type="text" id="bsvc" placeholder="organizational consulting"/></div>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="section-label">API keys</div>
-      <div class="keys-wrap">
-        <div class="grid2">
-          <div class="field"><label>Anthropic API key</label><input type="password" id="ckey" placeholder="sk-ant-..."/></div>
-          <div class="field"><label>Perplexity API key</label><input type="password" id="pkey" placeholder="pplx-..."/></div>
-        </div>
-        <div class="keys-note">Keys are used directly in your browser and never stored or sent anywhere.</div>
-      </div>
       <button class="run-btn" id="runbtn" onclick="runAudit()">&#x1F50D; Run GEO Scout</button>
     </div>
   </div>
@@ -158,34 +147,24 @@ function setStep(id,state,desc){
   if(desc){const el=document.getElementById('d-'+id);if(el)el.textContent=desc;}
 }
 
-async function callPerplexity(apiKey,query){
-  const res=await fetch('https://api.perplexity.ai/chat/completions',{
+async function callPerplexity(query){
+  const res=await fetch('/api/perplexity',{
     method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-    body:JSON.stringify({
-      model:'sonar',
-      messages:[
-        {role:'system',content:'You are a helpful assistant answering local business recommendation queries. Be direct and specific.'},
-        {role:'user',content:query}
-      ],
-      max_tokens:400
-    })
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({query})
   });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Perplexity error: '+(e.error?.message||res.status));}
-  const d=await res.json();
-  return{answer:d.choices?.[0]?.message?.content||'',citations:d.citations||[]};
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Perplexity error: '+(e.error||res.status));}
+  return res.json();
 }
 
-async function callClaude(apiKey,prompt){
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
+async function callClaude(prompt){
+  const res=await fetch('/api/claude',{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are a GEO (Generative Engine Optimization) expert analyst. Respond only with valid JSON. No preamble, no markdown fences, no commentary.',messages:[{role:'user',content:prompt}]})
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({prompt})
   });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Claude error: '+(e.error?.message||res.status));}
-  const d=await res.json();
-  const txt=d.content.map(b=>b.text||'').join('');
-  return JSON.parse(txt.replace(/```json|```/g,'').trim());
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Claude error: '+(e.error||res.status));}
+  return res.json();
 }
 
 async function runAudit(){
@@ -193,13 +172,7 @@ async function runAudit(){
   const url=document.getElementById('burl').value.trim();
   const loc=document.getElementById('bloc').value.trim();
   const svc=document.getElementById('bsvc').value.trim();
-  const ckey=document.getElementById('ckey').value.trim();
-  const pkey=document.getElementById('pkey').value.trim();
-  if(!name||!url||!loc||!svc||!ckey||!pkey){alert('Please fill in all fields including both API keys.');return;}
-
-  // Save keys to localStorage
-  localStorage.setItem('geo_scout_ckey',ckey);
-  localStorage.setItem('geo_scout_pkey',pkey);
+  if(!name||!url||!loc||!svc){alert('Please fill in all business details.');return;}
 
   document.getElementById('form-sec').style.display='none';
   document.getElementById('prog-sec').style.display='block';
@@ -216,12 +189,12 @@ async function runAudit(){
     const q5=`top ${svc} ${loc} 2025`;
     const q6=`${svc} expert ${loc}`;
     const [r1,r2,r3,r4,r5,r6]=await Promise.all([
-      callPerplexity(pkey,q1),
-      callPerplexity(pkey,q2),
-      callPerplexity(pkey,q3),
-      callPerplexity(pkey,q4),
-      callPerplexity(pkey,q5),
-      callPerplexity(pkey,q6)
+      callPerplexity(q1),
+      callPerplexity(q2),
+      callPerplexity(q3),
+      callPerplexity(q4),
+      callPerplexity(q5),
+      callPerplexity(q6)
     ]);
     const bl=name.toLowerCase();
     const a1=r1.answer.toLowerCase().includes(bl);
@@ -242,28 +215,28 @@ async function runAudit(){
     setStep('perp','done',`Completed — appeared in ${appearCount}/6 real Perplexity searches`);
 
     setStep('content','running');
-    const content=await callClaude(ckey,`Analyze GEO readiness for this business.
+    const content=await callClaude(`Analyze GEO readiness for this business.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
 Evaluate: question-based copy vs marketing copy, FAQ presence, geographic signals, service specificity, social proof.
 Return JSON: {"score":35,"question_based_copy":{"rating":"poor|fair|good","finding":"specific observation"},"faq_presence":{"rating":"poor|fair|good","finding":"specific observation"},"geo_signals":{"rating":"poor|fair|good","finding":"specific observation"},"service_specificity":{"rating":"poor|fair|good","finding":"specific observation"},"social_proof":{"rating":"poor|fair|good","finding":"specific observation"}}`);
     setStep('content','done','Content analysis complete');
 
     setStep('entity','running');
-    const entity=await callClaude(ckey,`Assess entity consistency and directory presence for GEO.
+    const entity=await callClaude(`Assess entity consistency and directory presence for GEO.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
 Evaluate Google Business presence, LinkedIn, industry directories, name/location/service consistency across platforms.
 Return JSON: {"score":40,"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","missing_platforms":["platform1","platform2","platform3"],"gaps":["gap1","gap2"]}`);
     setStep('entity','done','Entity check complete');
 
     setStep('authority','running');
-    const authority=await callClaude(ckey,`Assess authority and citation signals for GEO purposes.
+    const authority=await callClaude(`Assess authority and citation signals for GEO purposes.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
 Evaluate citeable content (articles, guides, thought leadership), third-party mentions, expert positioning.
 Return JSON: {"score":30,"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","citeable_content":{"exists":false,"detail":"what exists or is missing"},"expert_positioning":{"rating":"poor|fair|good","detail":"assessment"}}`);
     setStep('authority','done','Authority check complete');
 
     setStep('report','running');
-    const report=await callClaude(ckey,`Create a GEO audit report for a client debrief.
+    const report=await callClaude(`Create a GEO audit report for a client debrief.
 Business: "${name}" | Location: "${loc}" | Service: "${svc}"
 Perplexity: appeared in ${perpData.appearCount}/6 real searches across 6 different query types.
 Sample Perplexity answer for "${q1}": "${r1.answer.slice(0,300)}"
