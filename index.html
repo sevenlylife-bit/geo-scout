@@ -22,7 +22,8 @@
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;padding:2rem 1rem}
   .container{max-width:680px;margin:0 auto}
   .brand{display:flex;align-items:center;gap:12px;margin-bottom:2.5rem}
-  .bmark{width:38px;height:38px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:var(--gold)}
+  .bmark{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+  .bmark img{width:42px;height:42px;object-fit:contain}
   .bname{font-size:17px;font-weight:600;color:var(--dark)}
   .bsub{font-size:11px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-top:1px}
   .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
@@ -86,7 +87,7 @@
 <body>
 <div class="container">
   <div class="brand">
-    <div class="bmark">7</div>
+    <div class="bmark"><img src="logo.png" alt="Sevenly Systems" onerror="this.parentElement.innerHTML='<span style=\'font-weight:700;font-size:20px;color:#C6A04D;background:#4F6B57;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center\'>7</span>'"/></div>
     <div>
       <div class="bname">GEO Scout</div>
       <div class="bsub">by Sevenly Systems</div>
@@ -196,6 +197,10 @@ async function runAudit(){
   const pkey=document.getElementById('pkey').value.trim();
   if(!name||!url||!loc||!svc||!ckey||!pkey){alert('Please fill in all fields including both API keys.');return;}
 
+  // Save keys to localStorage
+  localStorage.setItem('geo_scout_ckey',ckey);
+  localStorage.setItem('geo_scout_pkey',pkey);
+
   document.getElementById('form-sec').style.display='none';
   document.getElementById('prog-sec').style.display='block';
   document.getElementById('report-sec').style.display='none';
@@ -203,22 +208,38 @@ async function runAudit(){
   STEPS.forEach(s=>ss[s.id]='wait');renderSteps();
 
   try{
-    setStep('perp','running','Sending live queries to Perplexity...');
+    setStep('perp','running','Sending 6 live queries to Perplexity...');
     const q1=`best ${svc} in ${loc}`;
     const q2=`${svc} recommendation ${loc}`;
     const q3=`who should I hire for ${svc} in ${loc}`;
-    const [r1,r2,r3]=await Promise.all([
+    const q4=`${loc} ${svc} reviews`;
+    const q5=`top ${svc} ${loc} 2025`;
+    const q6=`${svc} expert ${loc}`;
+    const [r1,r2,r3,r4,r5,r6]=await Promise.all([
       callPerplexity(pkey,q1),
       callPerplexity(pkey,q2),
-      callPerplexity(pkey,q3)
+      callPerplexity(pkey,q3),
+      callPerplexity(pkey,q4),
+      callPerplexity(pkey,q5),
+      callPerplexity(pkey,q6)
     ]);
     const bl=name.toLowerCase();
     const a1=r1.answer.toLowerCase().includes(bl);
     const a2=r2.answer.toLowerCase().includes(bl);
     const a3=r3.answer.toLowerCase().includes(bl);
-    const appearCount=[a1,a2,a3].filter(Boolean).length;
-    const perpData={queries:[{q:q1,answer:r1.answer,appears:a1},{q:q2,answer:r2.answer,appears:a2},{q:q3,answer:r3.answer,appears:a3}],appearCount};
-    setStep('perp','done',`Completed — appeared in ${appearCount}/3 real Perplexity searches`);
+    const a4=r4.answer.toLowerCase().includes(bl);
+    const a5=r5.answer.toLowerCase().includes(bl);
+    const a6=r6.answer.toLowerCase().includes(bl);
+    const appearCount=[a1,a2,a3,a4,a5,a6].filter(Boolean).length;
+    const perpData={queries:[
+      {q:q1,answer:r1.answer,appears:a1},
+      {q:q2,answer:r2.answer,appears:a2},
+      {q:q3,answer:r3.answer,appears:a3},
+      {q:q4,answer:r4.answer,appears:a4},
+      {q:q5,answer:r5.answer,appears:a5},
+      {q:q6,answer:r6.answer,appears:a6}
+    ],appearCount};
+    setStep('perp','done',`Completed — appeared in ${appearCount}/6 real Perplexity searches`);
 
     setStep('content','running');
     const content=await callClaude(ckey,`Analyze GEO readiness for this business.
@@ -244,7 +265,7 @@ Return JSON: {"score":30,"overall_rating":"poor|fair|good","key_finding":"1-2 se
     setStep('report','running');
     const report=await callClaude(ckey,`Create a GEO audit report for a client debrief.
 Business: "${name}" | Location: "${loc}" | Service: "${svc}"
-Perplexity: appeared in ${perpData.appearCount}/3 real searches.
+Perplexity: appeared in ${perpData.appearCount}/6 real searches across 6 different query types.
 Sample Perplexity answer for "${q1}": "${r1.answer.slice(0,300)}"
 Content score: ${content.score} | Entity score: ${entity.score} | Authority score: ${authority.score}
 Be specific, honest, and actionable. This will be shown directly to the business owner.
@@ -274,7 +295,7 @@ function renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,
   rs.style.display='block';
   document.getElementById('prog-sec').style.display='none';
   const c=sc(report.overall_score);
-  const visChips=perpData.queries.map((q,i)=>`<div class="vchip"><div class="vcname">Query ${i+1}</div><div class="vcval ${q.appears?'vyes':'vno'}">${q.appears?'Found':'Not found'}</div></div>`).join('');
+  const visChips=perpData.queries.map((q,i)=>`<div class="vchip"><div class="vcname" title="${q.q}">Query ${i+1}</div><div class="vcval ${q.appears?'vyes':'vno'}">${q.appears?'Found':'Not found'}</div></div>`).join('');
   const gaps=report.top_gaps.map(g=>`<div class="finding"><div class="fhead"><div class="dot ${dcls(g.severity)}"></div><div class="ftitle">${g.title} <span class="tag ${g.severity==='critical'?'tr':g.severity==='moderate'?'ta':'tg'}">${g.severity}</span></div></div><div class="fbody">${g.detail}</div></div>`).join('');
   const recs=report.recommendations.map((r,i)=>`<li><div class="rnum">${i+1}</div><span>${r}</span></li>`).join('');
   const snippet=r1.answer.slice(0,240)+(r1.answer.length>240?'...':'');
@@ -294,7 +315,7 @@ function renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,
       </div>
       <div class="divider" style="margin:0.75rem 0"></div>
       <div style="font-size:13px;font-weight:600;margin-bottom:6px">Perplexity visibility <span class="badge-live">live data</span></div>
-      <div style="font-size:12px;color:#666;margin-bottom:4px">Appeared in <strong>${perpData.appearCount}</strong> of 3 real Perplexity searches for "${svc}" in ${loc}</div>
+      <div style="font-size:12px;color:#666;margin-bottom:4px">Appeared in <strong>${perpData.appearCount}</strong> of 6 real Perplexity searches for "${svc}" in ${loc}</div>
       <div class="vis-grid">${visChips}</div>
       <div class="quote-box">${snippet}</div>
     </div>
@@ -330,6 +351,13 @@ function renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,
     <button class="action-btn" onclick="resetForm()">&#8635; Run another audit</button>
   `;
 }
+
+window.addEventListener('load',()=>{
+  const ck=localStorage.getItem('geo_scout_ckey');
+  const pk=localStorage.getItem('geo_scout_pkey');
+  if(ck)document.getElementById('ckey').value=ck;
+  if(pk)document.getElementById('pkey').value=pk;
+});
 
 function resetForm(){
   document.getElementById('form-sec').style.display='block';
