@@ -363,6 +363,20 @@ function renderReport({name,loc,svc,perpData,content,entity,authority,report,sco
       <div style="font-size:13px;color:#232323;line-height:1.7">${report.opportunity_statement}</div>
     </div>
 
+    <div class="card">
+      <div class="section-label">Manual checks — complete the picture</div>
+      <div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:12px">Perplexity is automated above. Run these three prompts manually before your debrief to get the full AI visibility picture. Copy each prompt, paste it in, and screenshot the result.</div>
+      ${['ChatGPT','Gemini','Google'].map(platform=>`
+        <div style="margin-bottom:14px;padding:12px;background:var(--light);border-radius:8px">
+          <div style="font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px">${platform}</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:8px;font-style:italic">"I'm looking for recommendations for the best ${svc} in ${loc}. Who are the top options, what do people say about them, and who would you recommend I contact first?"</div>
+          <button onclick="navigator.clipboard.writeText('I\\'m looking for recommendations for the best ${svc} in ${loc}. Who are the top options, what do people say about them, and who would you recommend I contact first?')" style="font-size:11px;padding:4px 10px;background:#fff;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--dark)">Copy prompt</button>
+          ${platform==='ChatGPT'?'<a href="https://chat.openai.com" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open ChatGPT ↗</a>':''}
+          ${platform==='Gemini'?'<a href="https://gemini.google.com" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open Gemini ↗</a>':''}
+          ${platform==='Google'?'<a href="https://www.google.com/search?q=best+${encodeURIComponent(svc)}+in+${encodeURIComponent(loc)}" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open Google ↗</a>':''}
+        </div>`).join('')}
+    </div>
+
     <button class="action-btn print-btn" onclick="window.print()">&#x1F4BE; Save as PDF / Print report</button>
     <button class="action-btn" onclick="resetForm()">&#8635; Run another audit</button>
   `;
