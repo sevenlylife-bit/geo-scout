@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GEO Scout — Manual Checks</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--green:#4F6B57;--gold:#C6A04D;--cream:#F7F4EE;--dark:#232323;--mid:#666;--light:#f0ede8;--border:#ddd;--card:#fff;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;padding:2rem 1rem}
+  .container{max-width:680px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+  .bmark{width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+  .bmark img{width:38px;height:38px;object-fit:contain}
+  .bname{font-size:17px;font-weight:600;color:var(--dark)}
+  .bsub{font-size:11px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-top:1px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
+  .section-label{font-size:11px;font-weight:600;color:var(--mid);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:12px;color:var(--mid);margin-bottom:4px;font-weight:500}
+  input[type=text]{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--dark);outline:none;transition:border 0.15s}
+  input:focus{border-color:var(--green)}
+  .run-btn{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+  .run-btn:hover{background:#3d5544}
+  .platform-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+  .platform-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .platform-name{font-size:15px;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:8px}
+  .platform-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+  .ic-chatgpt{background:#10a37f}
+  .ic-gemini{background:#4285f4}
+  .ic-google{background:#ea4335}
+  .status-dot{width:10px;height:10px;border-radius:50%;background:#ddd;flex-shrink:0}
+  .status-dot.checked{background:#27ae60}
+  .prompt-box{background:var(--light);border-left:3px solid var(--green);padding:10px 14px;border-radius:0 6px 6px 0;font-size:12px;color:var(--mid);line-height:1.6;font-style:italic;margin-bottom:12px}
+  .btn-row{display:flex;gap:8px;flex-wrap:wrap}
+  .copy-btn{padding:8px 14px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;color:var(--dark);transition:background 0.15s}
+  .copy-btn:hover{background:var(--light)}
+  .copy-btn.copied{background:#e8f5e9;color:#1b5e20;border-color:#a5d6a7}
+  .open-btn{padding:8px 14px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+  .open-btn:hover{background:#3d5544}
+  .mark-btn{padding:8px 14px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;color:var(--mid);transition:all 0.15s}
+  .mark-btn:hover{background:var(--light)}
+  .mark-btn.done{background:#e8f5e9;color:#1b5e20;border-color:#a5d6a7}
+  .notes-area{width:100%;margin-top:10px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--dark);background:#fff;resize:vertical;min-height:60px;font-family:inherit;outline:none}
+  .notes-area:focus{border-color:var(--green)}
+  .progress-bar{display:flex;gap:8px;align-items:center;margin-bottom:1.5rem}
+  .prog-step{flex:1;height:4px;border-radius:2px;background:var(--light);transition:background 0.3s}
+  .prog-step.done{background:var(--green)}
+  .prog-label{font-size:11px;color:var(--mid)}
+  .summary-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;display:none}
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+  .result-chip{border-radius:8px;padding:10px 8px;text-align:center}
+  .result-chip-name{font-size:11px;color:var(--mid);margin-bottom:4px;font-weight:500}
+  .result-chip-val{font-size:13px;font-weight:700}
+  .found{background:#e8f5e9;color:#1b5e20}
+  .notfound{background:#fdecea;color:#b71c1c}
+  .pending{background:var(--light);color:var(--mid)}
+  .action-btn{width:100%;padding:10px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-weight:500}
+  .action-btn:hover{background:var(--light)}
+  @media(max-width:500px){.grid2{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.btn-row{flex-direction:column}}
+  @media print{.run-btn,.copy-btn,.open-btn,.mark-btn,.action-btn{display:none}.card,.platform-card,.summary-card{border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">
+    <div class="bmark"><img src="logo.png" alt="Sevenly Systems" onerror="this.parentElement.innerHTML='<span style=\'font-weight:700;font-size:20px;color:#C6A04D;background:#4F6B57;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center\'>7</span>'"/></div>
+    <div><div class="bname">GEO Scout</div><div class="bsub">Manual AI Checks</div></div>
+  </div>
+
+  <div id="setup-sec">
+    <div class="card">
+      <div class="section-label">Business details</div>
+      <div class="grid2">
+        <div class="field"><label>Business name</label><input type="text" id="bname" placeholder="Induction Consulting"/></div>
+        <div class="field"><label>Service type</label><input type="text" id="bsvc" placeholder="organizational consulting"/></div>
+      </div>
+      <div class="field"><label>City / region</label><input type="text" id="bloc" placeholder="Regina, Saskatchewan"/></div>
+      <button class="run-btn" onclick="generateChecks()">&#x1F50D; Generate check prompts</button>
+    </div>
+  </div>
+
+  <div id="checks-sec" style="display:none">
+    <div class="progress-bar">
+      <div class="prog-step" id="ps-chatgpt"></div>
+      <div class="prog-step" id="ps-gemini"></div>
+      <div class="prog-step" id="ps-google"></div>
+      <span class="prog-label" id="prog-label">0 of 3 checked</span>
+    </div>
+
+    <div class="summary-card" id="summary-card">
+      <div class="section-label" id="summary-biz"></div>
+      <div class="result-grid" id="result-grid"></div>
+      <div id="summary-notes" style="margin-top:12px;font-size:12px;color:var(--mid);line-height:1.6"></div>
+    </div>
+
+    <div id="platform-cards"></div>
+
+    <button class="action-btn" onclick="window.print()">&#x1F4BE; Save / Print results</button>
+    <button class="action-btn" onclick="resetChecks()">&#8635; Check another business</button>
+  </div>
+</div>
+
+<script>
+var state={name:'',svc:'',loc:'',results:{chatgpt:'pending',gemini:'pending',google:'pending'},notes:{chatgpt:'',gemini:'',google:''}};
+
+var PLATFORMS=[
+  {id:'chatgpt',name:'ChatGPT',icon:'ic-chatgpt',label:'C',url:'https://chat.openai.com'},
+  {id:'gemini',name:'Gemini',icon:'ic-gemini',label:'G',url:'https://gemini.google.com'},
+  {id:'google',name:'Google AI Overview',icon:'ic-google',label:'G',url:''}
+];
+
+function generateChecks(){
+  var name=document.getElementById('bname').value.trim();
+  var svc=document.getElementById('bsvc').value.trim();
+  var loc=document.getElementById('bloc').value.trim();
+  if(!name||!svc||!loc){alert('Please fill in all fields.');return;}
+  state.name=name;state.svc=svc;state.loc=loc;
+  state.results={chatgpt:'pending',gemini:'pending',google:'pending'};
+  state.notes={chatgpt:'',gemini:'',google:''};
+  document.getElementById('setup-sec').style.display='none';
+  document.getElementById('checks-sec').style.display='block';
+  renderCards();
+  updateProgress();
+}
+
+function getPrompt(){
+  return 'I am looking for recommendations for the best '+state.svc+' in '+state.loc+'. Who are the top options, what do people say about them, and who would you recommend I contact first?';
+}
+
+function getGoogleUrl(){
+  return 'https://www.google.com/search?q=best+'+encodeURIComponent(state.svc)+'+in+'+encodeURIComponent(state.loc);
+}
+
+function renderCards(){
+  var prompt=getPrompt();
+  document.getElementById('platform-cards').innerHTML=PLATFORMS.map(function(p){
+    var url=p.id==='google'?getGoogleUrl():p.url;
+    var res=state.results[p.id];
+    var isDone=res!=='pending';
+    return '<div class="platform-card" id="card-'+p.id+'">'+
+      '<div class="platform-header">'+
+        '<div class="platform-name"><div class="platform-icon '+p.icon+'">'+p.label+'</div>'+p.name+'</div>'+
+        '<div class="status-dot'+(isDone?' checked':'')+'" id="dot-'+p.id+'"></div>'+
+      '</div>'+
+      '<div class="prompt-box">"'+prompt+'"</div>'+
+      '<div class="btn-row">'+
+        '<button class="copy-btn" id="copybtn-'+p.id+'" onclick="copyPrompt(\''+p.id+'\')">Copy prompt</button>'+
+        '<a class="open-btn" href="'+url+'" target="_blank">Open '+p.name+' &#8599;</a>'+
+      '</div>'+
+      '<div style="margin-top:12px">'+
+        '<div style="font-size:11px;color:var(--mid);margin-bottom:6px;font-weight:500">DID "'+state.name+'" APPEAR IN THE RESULTS?</div>'+
+        '<div class="btn-row">'+
+          '<button class="mark-btn'+(res==='found'?' done':'')+'" id="found-'+p.id+'" onclick="markResult(\''+p.id+'\',\'found\')">&#10003; Yes — found</button>'+
+          '<button class="mark-btn'+(res==='notfound'?' done':'')+'" id="nf-'+p.id+'" onclick="markResult(\''+p.id+'\',\'notfound\')">&#10007; Not found</button>'+
+        '</div>'+
+        '<textarea class="notes-area" id="notes-'+p.id+'" placeholder="Optional: paste competitor names or notes from results..." onchange="saveNote(\''+p.id+'\')">'+state.notes[p.id]+'</textarea>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function copyPrompt(platformId){
+  var prompt=getPrompt();
+  var btn=document.getElementById('copybtn-'+platformId);
+  navigator.clipboard.writeText(prompt).then(function(){
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy prompt';btn.classList.remove('copied');},2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy prompt';btn.classList.remove('copied');},2000);
+  });
+}
+
+function markResult(platformId,result){
+  state.results[platformId]=result;
+  var foundBtn=document.getElementById('found-'+platformId);
+  var nfBtn=document.getElementById('nf-'+platformId);
+  var dot=document.getElementById('dot-'+platformId);
+  foundBtn.classList.toggle('done',result==='found');
+  nfBtn.classList.toggle('done',result==='notfound');
+  dot.classList.add('checked');
+  updateProgress();
+  updateSummary();
+}
+
+function saveNote(platformId){
+  state.notes[platformId]=document.getElementById('notes-'+platformId).value;
+  updateSummary();
+}
+
+function updateProgress(){
+  var done=Object.values(state.results).filter(function(r){return r!=='pending';}).length;
+  PLATFORMS.forEach(function(p){
+    var el=document.getElementById('ps-'+p.id);
+    if(el)el.classList.toggle('done',state.results[p.id]!=='pending');
+  });
+  document.getElementById('prog-label').textContent=done+' of 3 checked';
+  if(done===3)updateSummary();
+}
+
+function updateSummary(){
+  var done=Object.values(state.results).filter(function(r){return r!=='pending';}).length;
+  var sc=document.getElementById('summary-card');
+  sc.style.display=done>0?'block':'none';
+  document.getElementById('summary-biz').textContent='Results for '+state.name;
+
+  var chips=PLATFORMS.map(function(p){
+    var r=state.results[p.id];
+    var cls=r==='found'?'found':r==='notfound'?'notfound':'pending';
+    var val=r==='found'?'&#10003; Found':r==='notfound'?'&#10007; Not found':'Pending';
+    return '<div class="result-chip '+cls+'"><div class="result-chip-name">'+p.name+'</div><div class="result-chip-val">'+val+'</div></div>';
+  }).join('');
+  document.getElementById('result-grid').innerHTML=chips;
+
+  var notesHtml=PLATFORMS.filter(function(p){return state.notes[p.id];}).map(function(p){
+    return '<strong>'+p.name+':</strong> '+state.notes[p.id];
+  }).join('<br>');
+  document.getElementById('summary-notes').innerHTML=notesHtml;
+}
+
+function resetChecks(){
+  state={name:'',svc:'',loc:'',results:{chatgpt:'pending',gemini:'pending',google:'pending'},notes:{chatgpt:'',gemini:'',google:''}};
+  document.getElementById('setup-sec').style.display='block';
+  document.getElementById('checks-sec').style.display='none';
+}
+</script>
+</body>
+</html>
