@@ -7,17 +7,9 @@
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --green:#4F6B57;
-    --gold:#C6A04D;
-    --cream:#F7F4EE;
-    --dark:#232323;
-    --mid:#666;
-    --light:#f0ede8;
-    --border:#ddd;
-    --red:#c0392b;
-    --amber:#d68910;
-    --success:#27ae60;
-    --card:#fff;
+    --green:#4F6B57;--gold:#C6A04D;--cream:#F7F4EE;--dark:#232323;
+    --mid:#666;--light:#f0ede8;--border:#ddd;--red:#c0392b;
+    --amber:#d68910;--success:#27ae60;--card:#fff;
   }
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;padding:2rem 1rem}
   .container{max-width:680px;margin:0 auto}
@@ -31,10 +23,8 @@
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
   .field{margin-bottom:12px}
   .field label{display:block;font-size:12px;color:var(--mid);margin-bottom:4px;font-weight:500}
-  input[type=text],input[type=password]{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--dark);outline:none;transition:border 0.15s}
+  input[type=text]{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--dark);outline:none;transition:border 0.15s}
   input:focus{border-color:var(--green)}
-  .keys-wrap{background:var(--light);border-radius:10px;padding:1rem;margin-bottom:1rem}
-  .keys-note{font-size:11px;color:var(--mid);margin-top:8px}
   .run-btn{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
   .run-btn:hover{background:#3d5544}
   .run-btn:disabled{opacity:0.45;cursor:default}
@@ -51,9 +41,13 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .spinner{width:13px;height:13px;border:2px solid var(--green);border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite}
   .score-row{display:flex;align-items:center;gap:16px;margin-bottom:1rem}
-  .score-circ{width:66px;height:66px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
-  .score-n{font-size:24px;font-weight:700;line-height:1}
+  .score-circ{width:72px;height:72px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+  .score-n{font-size:26px;font-weight:700;line-height:1}
   .score-d{font-size:10px;margin-top:2px;font-weight:500}
+  .score-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;margin-bottom:4px}
+  .sbar{background:var(--light);border-radius:8px;padding:8px;text-align:center}
+  .sbar-label{font-size:10px;color:var(--mid);margin-bottom:3px;font-weight:500}
+  .sbar-val{font-size:14px;font-weight:700}
   .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:6px;margin:2px;font-weight:500}
   .tg{background:#e8f5e9;color:#1b5e20}
   .ta{background:#fff8e1;color:#7f5600}
@@ -69,19 +63,27 @@
   .reclist li{font-size:13px;color:var(--dark);padding:8px 0;border-bottom:1px solid var(--light);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
   .reclist li:last-child{border-bottom:none}
   .rnum{font-size:11px;font-weight:700;color:var(--green);background:#e8f5e9;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-  .vis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-  .vchip{background:var(--light);border-radius:8px;padding:12px 8px;text-align:center}
-  .vcname{font-size:11px;color:var(--mid);margin-bottom:5px;font-weight:500}
-  .vcval{font-size:13px;font-weight:700}
+  .vis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .vchip{background:var(--light);border-radius:8px;padding:10px 8px;text-align:center}
+  .vcquery{font-size:10px;color:var(--mid);margin-bottom:4px;font-style:italic;line-height:1.3}
+  .vcval{font-size:12px;font-weight:700}
   .vno{color:var(--red)}.vyes{color:var(--success)}
-  .quote-box{background:var(--light);border-left:3px solid var(--green);padding:10px 14px;margin-top:12px;font-size:12px;color:var(--mid);line-height:1.7;font-style:italic;border-radius:0 6px 6px 0}
+  .quote-box{background:var(--light);border-left:3px solid var(--green);padding:10px 14px;margin-top:12px;font-size:12px;color:var(--mid);line-height:1.7;border-radius:0 6px 6px 0}
   .opp-card{background:var(--light);border-left:3px solid var(--green);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin-bottom:1.25rem}
   .action-btn{width:100%;padding:10px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-weight:500;transition:background 0.15s}
   .action-btn:hover{background:var(--light)}
+  .print-btn{background:var(--green);color:#fff;border:none}
+  .print-btn:hover{background:#3d5544}
   .errbox{background:#fdecea;border:1px solid #f5c6cb;border-radius:8px;padding:14px;font-size:13px;color:var(--red);margin-bottom:1rem;line-height:1.5}
   .badge-live{font-size:10px;background:#e8f5e9;color:#1b5e20;padding:2px 7px;border-radius:4px;margin-left:6px;font-weight:600;vertical-align:middle}
   .tags-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
-  @media(max-width:500px){.grid2{grid-template-columns:1fr}.vis-grid{grid-template-columns:1fr}}
+  @media(max-width:500px){.grid2{grid-template-columns:1fr}.vis-grid{grid-template-columns:1fr}.score-breakdown{grid-template-columns:1fr}}
+  @media print{
+    body{background:#fff;padding:0}
+    .action-btn{display:none}
+    .card{border:1px solid #ccc;page-break-inside:avoid}
+    .brand{margin-bottom:1rem}
+  }
 </style>
 </head>
 <body>
@@ -122,7 +124,7 @@
 
 <script>
 const STEPS=[
-  {id:'perp',label:'Live Perplexity queries',desc:'Sending 3 real searches to Perplexity AI'},
+  {id:'perp',label:'Live Perplexity queries',desc:'Sending 6 real searches to Perplexity AI'},
   {id:'content',label:'Website content analysis',desc:'Evaluating copy structure, FAQs, and location signals'},
   {id:'entity',label:'Entity & directory check',desc:'Checking name and service consistency across the web'},
   {id:'authority',label:'Authority & citation signals',desc:'Finding what AI can cite as expertise'},
@@ -145,6 +147,34 @@ function renderSteps(){
 function setStep(id,state,desc){
   ss[id]=state;renderSteps();
   if(desc){const el=document.getElementById('d-'+id);if(el)el.textContent=desc;}
+}
+
+// Strip markdown bold/italic from text
+function stripMd(text){
+  return text.replace(/\*\*(.*?)\*\*/g,'$1').replace(/\*(.*?)\*/g,'$1').replace(/\[(.*?)\]\(.*?\)/g,'$1');
+}
+
+// Real scoring formula
+function calcScores(perpData, content, entity, authority){
+  // Visibility: 0-40 pts based on 6 queries
+  const visScore = Math.round((perpData.appearCount / 6) * 40);
+
+  // Content: 5 signals x 5pts each = 0-25
+  const ratingPts = r => r==='good'?5:r==='fair'?3:0;
+  const contentScore = ratingPts(content.question_based_copy.rating)
+    + ratingPts(content.faq_presence.rating)
+    + ratingPts(content.geo_signals.rating)
+    + ratingPts(content.service_specificity.rating)
+    + ratingPts(content.social_proof.rating);
+
+  // Entity: 0-20 pts
+  const entityScore = ratingPts(entity.overall_rating) * 4;
+
+  // Authority: 0-15 pts
+  const authScore = Math.round(ratingPts(authority.expert_positioning.rating) * 3);
+
+  const total = visScore + contentScore + entityScore + authScore;
+  return {total, visScore, contentScore, entityScore, authScore};
 }
 
 async function callPerplexity(query){
@@ -189,12 +219,8 @@ async function runAudit(){
     const q5=`top ${svc} ${loc} 2025`;
     const q6=`${svc} expert ${loc}`;
     const [r1,r2,r3,r4,r5,r6]=await Promise.all([
-      callPerplexity(q1),
-      callPerplexity(q2),
-      callPerplexity(q3),
-      callPerplexity(q4),
-      callPerplexity(q5),
-      callPerplexity(q6)
+      callPerplexity(q1),callPerplexity(q2),callPerplexity(q3),
+      callPerplexity(q4),callPerplexity(q5),callPerplexity(q6)
     ]);
     const bl=name.toLowerCase();
     const a1=r1.answer.toLowerCase().includes(bl);
@@ -205,53 +231,53 @@ async function runAudit(){
     const a6=r6.answer.toLowerCase().includes(bl);
     const appearCount=[a1,a2,a3,a4,a5,a6].filter(Boolean).length;
     const perpData={queries:[
-      {q:q1,answer:r1.answer,appears:a1},
-      {q:q2,answer:r2.answer,appears:a2},
-      {q:q3,answer:r3.answer,appears:a3},
-      {q:q4,answer:r4.answer,appears:a4},
-      {q:q5,answer:r5.answer,appears:a5},
-      {q:q6,answer:r6.answer,appears:a6}
+      {q:q1,answer:r1.answer,appears:a1},{q:q2,answer:r2.answer,appears:a2},
+      {q:q3,answer:r3.answer,appears:a3},{q:q4,answer:r4.answer,appears:a4},
+      {q:q5,answer:r5.answer,appears:a5},{q:q6,answer:r6.answer,appears:a6}
     ],appearCount};
     setStep('perp','done',`Completed — appeared in ${appearCount}/6 real Perplexity searches`);
 
     setStep('content','running');
-    const content=await callClaude(`Analyze GEO readiness for this business.
+    const content=await callClaude(`Analyze GEO readiness for this business website.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate: question-based copy vs marketing copy, FAQ presence, geographic signals, service specificity, social proof.
-Return JSON: {"score":35,"question_based_copy":{"rating":"poor|fair|good","finding":"specific observation"},"faq_presence":{"rating":"poor|fair|good","finding":"specific observation"},"geo_signals":{"rating":"poor|fair|good","finding":"specific observation"},"service_specificity":{"rating":"poor|fair|good","finding":"specific observation"},"social_proof":{"rating":"poor|fair|good","finding":"specific observation"}}`);
+Evaluate each signal honestly based on what you know about this type of business.
+Return JSON only: {"question_based_copy":{"rating":"poor|fair|good","finding":"specific observation"},"faq_presence":{"rating":"poor|fair|good","finding":"specific observation"},"geo_signals":{"rating":"poor|fair|good","finding":"specific observation"},"service_specificity":{"rating":"poor|fair|good","finding":"specific observation"},"social_proof":{"rating":"poor|fair|good","finding":"specific observation"}}`);
     setStep('content','done','Content analysis complete');
 
     setStep('entity','running');
     const entity=await callClaude(`Assess entity consistency and directory presence for GEO.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate Google Business presence, LinkedIn, industry directories, name/location/service consistency across platforms.
-Return JSON: {"score":40,"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","missing_platforms":["platform1","platform2","platform3"],"gaps":["gap1","gap2"]}`);
+Evaluate Google Business presence, LinkedIn, industry directories, name/location/service consistency.
+Return JSON only: {"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","missing_platforms":["platform1","platform2","platform3"],"gaps":["gap1","gap2"]}`);
     setStep('entity','done','Entity check complete');
 
     setStep('authority','running');
-    const authority=await callClaude(`Assess authority and citation signals for GEO purposes.
+    const authority=await callClaude(`Assess authority and citation signals for GEO.
 Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate citeable content (articles, guides, thought leadership), third-party mentions, expert positioning.
-Return JSON: {"score":30,"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","citeable_content":{"exists":false,"detail":"what exists or is missing"},"expert_positioning":{"rating":"poor|fair|good","detail":"assessment"}}`);
+Evaluate citeable content, third-party mentions, expert positioning.
+Return JSON only: {"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","citeable_content":{"exists":false,"detail":"what exists or is missing"},"expert_positioning":{"rating":"poor|fair|good","detail":"assessment"}}`);
     setStep('authority','done','Authority check complete');
+
+    // Calculate real scores
+    const scores = calcScores(perpData, content, entity, authority);
 
     setStep('report','running');
     const report=await callClaude(`Create a GEO audit report for a client debrief.
 Business: "${name}" | Location: "${loc}" | Service: "${svc}"
-Perplexity: appeared in ${perpData.appearCount}/6 real searches across 6 different query types.
-Sample Perplexity answer for "${q1}": "${r1.answer.slice(0,300)}"
-Content score: ${content.score} | Entity score: ${entity.score} | Authority score: ${authority.score}
-Be specific, honest, and actionable. This will be shown directly to the business owner.
-Return JSON: {"overall_score":35,"headline":"one punchy honest sentence about their GEO situation","top_gaps":[{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail for this business"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"}],"recommendations":["Specific action 1 — what to do and why","Specific action 2","Specific action 3","Specific action 4"],"opportunity_statement":"2-3 sentences on what improved GEO visibility could mean for this specific business"}`);
+CALCULATED SCORES (use these exact numbers): Overall: ${scores.total}/100 | Visibility: ${scores.visScore}/40 | Content: ${scores.contentScore}/25 | Entity: ${scores.entityScore}/20 | Authority: ${scores.authScore}/15
+Perplexity: appeared in ${perpData.appearCount}/6 real searches.
+Sample Perplexity answer: "${stripMd(r1.answer.slice(0,300))}"
+Be specific, honest, and actionable for the business owner.
+Return JSON only: {"headline":"one punchy honest sentence about their GEO situation","top_gaps":[{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail for this business"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"}],"recommendations":["Specific action 1 — what to do and why","Specific action 2","Specific action 3","Specific action 4"],"opportunity_statement":"2-3 sentences on what improved GEO visibility could mean for this specific business"}`);
     setStep('report','done','Report ready');
 
-    renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,r1});
+    renderReport({name,loc,svc,perpData,content,entity,authority,report,scores,q1,r1});
 
   }catch(err){
     STEPS.forEach(s=>{if(ss[s.id]==='running')setStep(s.id,'err');});
     document.getElementById('err-sec').style.display='block';
     document.getElementById('prog-sec').style.display='none';
-    document.getElementById('err-sec').innerHTML=`<div class="errbox"><strong>Something went wrong:</strong><br>${err.message}<br><br>Check your API keys and try again.</div><button class="action-btn" onclick="resetForm()">&#8635; Try again</button>`;
+    document.getElementById('err-sec').innerHTML=`<div class="errbox"><strong>Something went wrong:</strong><br>${err.message}<br><br>Check your connection and try again.</div><button class="action-btn" onclick="resetForm()">&#8635; Try again</button>`;
   }
 }
 
@@ -263,32 +289,48 @@ function sc(s){
 function tcls(r){return r==='good'?'tg':r==='fair'?'ta':'tr';}
 function dcls(sev){return sev==='critical'?'dr':sev==='moderate'?'da':'dg';}
 
-function renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,r1}){
+function renderReport({name,loc,svc,perpData,content,entity,authority,report,scores,q1,r1}){
   const rs=document.getElementById('report-sec');
   rs.style.display='block';
   document.getElementById('prog-sec').style.display='none';
-  const c=sc(report.overall_score);
-  const visChips=perpData.queries.map((q,i)=>`<div class="vchip"><div class="vcname" title="${q.q}">Query ${i+1}</div><div class="vcval ${q.appears?'vyes':'vno'}">${q.appears?'Found':'Not found'}</div></div>`).join('');
+  const c=sc(scores.total);
+  const cv=sc(scores.visScore/40*100);
+  const cc=sc(scores.contentScore/25*100);
+  const ce=sc(scores.entityScore/20*100);
+  const ca=sc(scores.authScore/15*100);
+
+  const visChips=perpData.queries.map((q,i)=>`
+    <div class="vchip">
+      <div class="vcquery">${q.q}</div>
+      <div class="vcval ${q.appears?'vyes':'vno'}">${q.appears?'&#10003; Found':'&#10007; Not found'}</div>
+    </div>`).join('');
+
   const gaps=report.top_gaps.map(g=>`<div class="finding"><div class="fhead"><div class="dot ${dcls(g.severity)}"></div><div class="ftitle">${g.title} <span class="tag ${g.severity==='critical'?'tr':g.severity==='moderate'?'ta':'tg'}">${g.severity}</span></div></div><div class="fbody">${g.detail}</div></div>`).join('');
   const recs=report.recommendations.map((r,i)=>`<li><div class="rnum">${i+1}</div><span>${r}</span></li>`).join('');
-  const snippet=r1.answer.slice(0,240)+(r1.answer.length>240?'...':'');
+  const snippet=stripMd(r1.answer.slice(0,280))+(r1.answer.length>280?'...':'');
+  const today=new Date().toLocaleDateString('en-CA',{year:'numeric',month:'long',day:'numeric'});
 
   rs.innerHTML=`
     <div class="card">
-      <div class="section-label">GEO Scout report — ${name}</div>
+      <div class="section-label">GEO Scout report — ${name} &nbsp;<span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:#999">${today}</span></div>
       <div class="score-row">
         <div class="score-circ" style="background:${c.bg}">
-          <div class="score-n" style="color:${c.tc}">${Math.round(report.overall_score)}</div>
+          <div class="score-n" style="color:${c.tc}">${scores.total}</div>
           <div class="score-d" style="color:${c.tc}">/100</div>
         </div>
-        <div>
+        <div style="flex:1">
           <div style="font-size:15px;font-weight:600;color:#232323;margin-bottom:5px">${report.headline}</div>
           <div style="font-size:12px;color:#666">${loc} &middot; ${svc}</div>
         </div>
       </div>
+      <div class="score-breakdown">
+        <div class="sbar"><div class="sbar-label">Visibility</div><div class="sbar-val" style="color:${cv.tc}">${scores.visScore}<span style="font-size:10px;font-weight:400">/40</span></div></div>
+        <div class="sbar"><div class="sbar-label">Content</div><div class="sbar-val" style="color:${cc.tc}">${scores.contentScore}<span style="font-size:10px;font-weight:400">/25</span></div></div>
+        <div class="sbar"><div class="sbar-label">Entity</div><div class="sbar-val" style="color:${ce.tc}">${scores.entityScore}<span style="font-size:10px;font-weight:400">/20</span></div></div>
+      </div>
       <div class="divider" style="margin:0.75rem 0"></div>
       <div style="font-size:13px;font-weight:600;margin-bottom:6px">Perplexity visibility <span class="badge-live">live data</span></div>
-      <div style="font-size:12px;color:#666;margin-bottom:4px">Appeared in <strong>${perpData.appearCount}</strong> of 6 real Perplexity searches for "${svc}" in ${loc}</div>
+      <div style="font-size:12px;color:#666;margin-bottom:8px">Appeared in <strong>${perpData.appearCount}</strong> of 6 real Perplexity searches</div>
       <div class="vis-grid">${visChips}</div>
       <div class="quote-box">${snippet}</div>
     </div>
@@ -321,16 +363,10 @@ function renderReport({name,loc,svc,perpData,content,entity,authority,report,q1,
       <div style="font-size:13px;color:#232323;line-height:1.7">${report.opportunity_statement}</div>
     </div>
 
+    <button class="action-btn print-btn" onclick="window.print()">&#x1F4BE; Save as PDF / Print report</button>
     <button class="action-btn" onclick="resetForm()">&#8635; Run another audit</button>
   `;
 }
-
-window.addEventListener('load',()=>{
-  const ck=localStorage.getItem('geo_scout_ckey');
-  const pk=localStorage.getItem('geo_scout_pkey');
-  if(ck)document.getElementById('ckey').value=ck;
-  if(pk)document.getElementById('pkey').value=pk;
-});
 
 function resetForm(){
   document.getElementById('form-sec').style.display='block';
