@@ -6,11 +6,7 @@
 <title>GEO Scout — Sevenly Systems</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --green:#4F6B57;--gold:#C6A04D;--cream:#F7F4EE;--dark:#232323;
-    --mid:#666;--light:#f0ede8;--border:#ddd;--red:#c0392b;
-    --amber:#d68910;--success:#27ae60;--card:#fff;
-  }
+  :root{--green:#4F6B57;--gold:#C6A04D;--cream:#F7F4EE;--dark:#232323;--mid:#666;--light:#f0ede8;--border:#ddd;--red:#c0392b;--amber:#d68910;--success:#27ae60;--card:#fff;}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;padding:2rem 1rem}
   .container{max-width:680px;margin:0 auto}
   .brand{display:flex;align-items:center;gap:12px;margin-bottom:2.5rem}
@@ -27,15 +23,11 @@
   input:focus{border-color:var(--green)}
   .run-btn{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
   .run-btn:hover{background:#3d5544}
-  .run-btn:disabled{opacity:0.45;cursor:default}
   .divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
   .step{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--light)}
   .step:last-child{border-bottom:none}
   .sico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:13px}
-  .sico.wait{background:#eee;color:#999}
-  .sico.running{background:#e8f5e9;color:var(--green)}
-  .sico.done{background:#e8f5e9;color:var(--success)}
-  .sico.err{background:#fdecea;color:var(--red)}
+  .sico.wait{background:#eee;color:#999}.sico.running{background:#e8f5e9}.sico.done{background:#e8f5e9;color:var(--success)}.sico.err{background:#fdecea;color:var(--red)}
   .st{font-size:13px;font-weight:600;color:var(--dark)}
   .sd{font-size:12px;color:var(--mid);margin-top:2px;line-height:1.5}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -49,11 +41,8 @@
   .sbar-label{font-size:10px;color:var(--mid);margin-bottom:3px;font-weight:500}
   .sbar-val{font-size:14px;font-weight:700}
   .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:6px;margin:2px;font-weight:500}
-  .tg{background:#e8f5e9;color:#1b5e20}
-  .ta{background:#fff8e1;color:#7f5600}
-  .tr{background:#fdecea;color:#b71c1c}
-  .finding{padding:10px 0;border-bottom:1px solid var(--light)}
-  .finding:last-child{border-bottom:none}
+  .tg{background:#e8f5e9;color:#1b5e20}.ta{background:#fff8e1;color:#7f5600}.tr{background:#fdecea;color:#b71c1c}
+  .finding{padding:10px 0;border-bottom:1px solid var(--light)}.finding:last-child{border-bottom:none}
   .fhead{display:flex;align-items:center;gap:8px;margin-bottom:4px}
   .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
   .dr{background:#e74c3c}.da{background:#f39c12}.dg{background:#27ae60}
@@ -70,32 +59,29 @@
   .vno{color:var(--red)}.vyes{color:var(--success)}
   .quote-box{background:var(--light);border-left:3px solid var(--green);padding:10px 14px;margin-top:12px;font-size:12px;color:var(--mid);line-height:1.7;border-radius:0 6px 6px 0}
   .opp-card{background:var(--light);border-left:3px solid var(--green);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin-bottom:1.25rem}
-  .action-btn{width:100%;padding:10px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-weight:500;transition:background 0.15s}
+  .action-btn{width:100%;padding:10px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-weight:500;transition:background 0.15s;text-decoration:none}
   .action-btn:hover{background:var(--light)}
   .print-btn{background:var(--green);color:#fff;border:none}
-  .print-btn:hover{background:#3d5544}
+  .print-btn:hover{background:#3d5544;color:#fff}
   .errbox{background:#fdecea;border:1px solid #f5c6cb;border-radius:8px;padding:14px;font-size:13px;color:var(--red);margin-bottom:1rem;line-height:1.5}
   .badge-live{font-size:10px;background:#e8f5e9;color:#1b5e20;padding:2px 7px;border-radius:4px;margin-left:6px;font-weight:600;vertical-align:middle}
   .tags-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+  .manual-block{margin-bottom:14px;padding:12px;background:var(--light);border-radius:8px}
+  .manual-block-title{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px}
+  .manual-prompt{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:8px;font-style:italic}
+  .manual-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .copy-btn{font-size:11px;padding:4px 10px;background:#fff;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--dark)}
+  .open-btn{font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;display:inline-block}
   @media(max-width:500px){.grid2{grid-template-columns:1fr}.vis-grid{grid-template-columns:1fr}.score-breakdown{grid-template-columns:1fr}}
-  @media print{
-    body{background:#fff;padding:0}
-    .action-btn{display:none}
-    .card{border:1px solid #ccc;page-break-inside:avoid}
-    .brand{margin-bottom:1rem}
-  }
+  @media print{body{background:#fff;padding:0}.action-btn{display:none}.card{border:1px solid #ccc;page-break-inside:avoid}.brand{margin-bottom:1rem}}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="brand">
     <div class="bmark"><img src="logo.png" alt="Sevenly Systems" onerror="this.parentElement.innerHTML='<span style=\'font-weight:700;font-size:20px;color:#C6A04D;background:#4F6B57;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center\'>7</span>'"/></div>
-    <div>
-      <div class="bname">GEO Scout</div>
-      <div class="bsub">by Sevenly Systems</div>
-    </div>
+    <div><div class="bname">GEO Scout</div><div class="bsub">by Sevenly Systems</div></div>
   </div>
-
   <div id="form-sec">
     <div class="card">
       <div class="section-label">Business details</div>
@@ -107,26 +93,20 @@
         <div class="field"><label>City / region</label><input type="text" id="bloc" placeholder="Regina, Saskatchewan"/></div>
         <div class="field"><label>Service type</label><input type="text" id="bsvc" placeholder="organizational consulting"/></div>
       </div>
-      <button class="run-btn" id="runbtn" onclick="runAudit()">&#x1F50D; Run GEO Scout</button>
+      <button class="run-btn" onclick="runAudit()">&#x1F50D; Run GEO Scout</button>
     </div>
   </div>
-
   <div id="prog-sec" style="display:none">
-    <div class="card">
-      <div class="section-label">Running audit</div>
-      <div id="steps-wrap"></div>
-    </div>
+    <div class="card"><div class="section-label">Running audit</div><div id="steps-wrap"></div></div>
   </div>
-
   <div id="report-sec" style="display:none"></div>
   <div id="err-sec" style="display:none"></div>
 </div>
-
 <script>
 const STEPS=[
   {id:'perp',label:'Live Perplexity queries',desc:'Sending 6 real searches to Perplexity AI'},
   {id:'content',label:'Website content analysis',desc:'Evaluating copy structure, FAQs, and location signals'},
-  {id:'entity',label:'Entity & directory check',desc:'Checking name and service consistency across the web'},
+  {id:'entity',label:'Entity & directory check',desc:'Checking name and service consistency'},
   {id:'authority',label:'Authority & citation signals',desc:'Finding what AI can cite as expertise'},
   {id:'report',label:'Generating report',desc:'Compiling findings and recommendations'}
 ];
@@ -135,251 +115,177 @@ let ss={};
 function renderSteps(){
   document.getElementById('steps-wrap').innerHTML=STEPS.map(s=>{
     const st=ss[s.id]||'wait';
-    let ico='';
-    if(st==='wait')ico='&#9711;';
-    if(st==='running')ico='<div class="spinner"></div>';
-    if(st==='done')ico='&#10003;';
-    if(st==='err')ico='&#10007;';
-    return `<div class="step"><div class="sico ${st}">${ico}</div><div><div class="st">${s.label}</div><div class="sd" id="d-${s.id}">${s.desc}</div></div></div>`;
+    let ico=st==='wait'?'&#9711;':st==='running'?'<div class="spinner"></div>':st==='done'?'&#10003;':'&#10007;';
+    return '<div class="step"><div class="sico '+st+'">'+ico+'</div><div><div class="st">'+s.label+'</div><div class="sd" id="d-'+s.id+'">'+s.desc+'</div></div></div>';
   }).join('');
 }
-
 function setStep(id,state,desc){
   ss[id]=state;renderSteps();
-  if(desc){const el=document.getElementById('d-'+id);if(el)el.textContent=desc;}
+  if(desc){var el=document.getElementById('d-'+id);if(el)el.textContent=desc;}
 }
+function stripMd(t){return t.replace(/\*\*(.*?)\*\*/g,'$1').replace(/\*(.*?)\*/g,'$1').replace(/\[(.*?)\]\(.*?\)/g,'$1');}
 
-// Strip markdown bold/italic from text
-function stripMd(text){
-  return text.replace(/\*\*(.*?)\*\*/g,'$1').replace(/\*(.*?)\*/g,'$1').replace(/\[(.*?)\]\(.*?\)/g,'$1');
-}
-
-// Real scoring formula
-function calcScores(perpData, content, entity, authority){
-  // Visibility: 0-40 pts based on 6 queries
-  const visScore = Math.round((perpData.appearCount / 6) * 40);
-
-  // Content: 5 signals x 5pts each = 0-25
-  const ratingPts = r => r==='good'?5:r==='fair'?3:0;
-  const contentScore = ratingPts(content.question_based_copy.rating)
-    + ratingPts(content.faq_presence.rating)
-    + ratingPts(content.geo_signals.rating)
-    + ratingPts(content.service_specificity.rating)
-    + ratingPts(content.social_proof.rating);
-
-  // Entity: 0-20 pts
-  const entityScore = ratingPts(entity.overall_rating) * 4;
-
-  // Authority: 0-15 pts
-  const authScore = Math.round(ratingPts(authority.expert_positioning.rating) * 3);
-
-  const total = visScore + contentScore + entityScore + authScore;
-  return {total, visScore, contentScore, entityScore, authScore};
+function calcScores(perpData,content,entity,authority){
+  var visScore=Math.round((perpData.appearCount/6)*40);
+  var rp=function(r){return r==='good'?5:r==='fair'?3:0;};
+  var contentScore=rp(content.question_based_copy.rating)+rp(content.faq_presence.rating)+rp(content.geo_signals.rating)+rp(content.service_specificity.rating)+rp(content.social_proof.rating);
+  var entityScore=rp(entity.overall_rating)*4;
+  var authScore=Math.round(rp(authority.expert_positioning.rating)*3);
+  return{total:visScore+contentScore+entityScore+authScore,visScore:visScore,contentScore:contentScore,entityScore:entityScore,authScore:authScore};
 }
 
 async function callPerplexity(query){
-  const res=await fetch('/api/perplexity',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({query})
-  });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Perplexity error: '+(e.error||res.status));}
+  var res=await fetch('/api/perplexity',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:query})});
+  if(!res.ok){var e=await res.json().catch(function(){return{};});throw new Error('Perplexity: '+(e.error||res.status));}
   return res.json();
 }
-
 async function callClaude(prompt){
-  const res=await fetch('/api/claude',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({prompt})
-  });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error('Claude error: '+(e.error||res.status));}
+  var res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:prompt})});
+  if(!res.ok){var e=await res.json().catch(function(){return{};});throw new Error('Claude error: '+(e.error||res.status));}
   return res.json();
 }
 
 async function runAudit(){
-  const name=document.getElementById('bname').value.trim();
-  const url=document.getElementById('burl').value.trim();
-  const loc=document.getElementById('bloc').value.trim();
-  const svc=document.getElementById('bsvc').value.trim();
+  var name=document.getElementById('bname').value.trim();
+  var url=document.getElementById('burl').value.trim();
+  var loc=document.getElementById('bloc').value.trim();
+  var svc=document.getElementById('bsvc').value.trim();
   if(!name||!url||!loc||!svc){alert('Please fill in all business details.');return;}
-
   document.getElementById('form-sec').style.display='none';
   document.getElementById('prog-sec').style.display='block';
   document.getElementById('report-sec').style.display='none';
   document.getElementById('err-sec').style.display='none';
-  STEPS.forEach(s=>ss[s.id]='wait');renderSteps();
-
+  STEPS.forEach(function(s){ss[s.id]='wait';});renderSteps();
   try{
     setStep('perp','running','Sending 6 live queries to Perplexity...');
-    const q1=`best ${svc} in ${loc}`;
-    const q2=`${svc} recommendation ${loc}`;
-    const q3=`who should I hire for ${svc} in ${loc}`;
-    const q4=`${loc} ${svc} reviews`;
-    const q5=`top ${svc} ${loc} 2025`;
-    const q6=`${svc} expert ${loc}`;
-    const [r1,r2,r3,r4,r5,r6]=await Promise.all([
-      callPerplexity(q1),callPerplexity(q2),callPerplexity(q3),
-      callPerplexity(q4),callPerplexity(q5),callPerplexity(q6)
-    ]);
-    const bl=name.toLowerCase();
-    const a1=r1.answer.toLowerCase().includes(bl);
-    const a2=r2.answer.toLowerCase().includes(bl);
-    const a3=r3.answer.toLowerCase().includes(bl);
-    const a4=r4.answer.toLowerCase().includes(bl);
-    const a5=r5.answer.toLowerCase().includes(bl);
-    const a6=r6.answer.toLowerCase().includes(bl);
-    const appearCount=[a1,a2,a3,a4,a5,a6].filter(Boolean).length;
-    const perpData={queries:[
-      {q:q1,answer:r1.answer,appears:a1},{q:q2,answer:r2.answer,appears:a2},
-      {q:q3,answer:r3.answer,appears:a3},{q:q4,answer:r4.answer,appears:a4},
-      {q:q5,answer:r5.answer,appears:a5},{q:q6,answer:r6.answer,appears:a6}
-    ],appearCount};
-    setStep('perp','done',`Completed — appeared in ${appearCount}/6 real Perplexity searches`);
+    var q1='best '+svc+' in '+loc;
+    var q2=svc+' recommendation '+loc;
+    var q3='who should I hire for '+svc+' in '+loc;
+    var q4=loc+' '+svc+' reviews';
+    var q5='top '+svc+' '+loc+' 2025';
+    var q6=svc+' expert '+loc;
+    var results=await Promise.all([callPerplexity(q1),callPerplexity(q2),callPerplexity(q3),callPerplexity(q4),callPerplexity(q5),callPerplexity(q6)]);
+    var r1=results[0],r2=results[1],r3=results[2],r4=results[3],r5=results[4],r6=results[5];
+    var bl=name.toLowerCase();
+    var queries=[
+      {q:q1,answer:r1.answer,appears:r1.answer.toLowerCase().includes(bl)},
+      {q:q2,answer:r2.answer,appears:r2.answer.toLowerCase().includes(bl)},
+      {q:q3,answer:r3.answer,appears:r3.answer.toLowerCase().includes(bl)},
+      {q:q4,answer:r4.answer,appears:r4.answer.toLowerCase().includes(bl)},
+      {q:q5,answer:r5.answer,appears:r5.answer.toLowerCase().includes(bl)},
+      {q:q6,answer:r6.answer,appears:r6.answer.toLowerCase().includes(bl)}
+    ];
+    var appearCount=queries.filter(function(q){return q.appears;}).length;
+    var perpData={queries:queries,appearCount:appearCount};
+    setStep('perp','done','Completed — appeared in '+appearCount+'/6 real searches');
 
     setStep('content','running');
-    const content=await callClaude(`Analyze GEO readiness for this business website.
-Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate each signal honestly based on what you know about this type of business.
-Return JSON only: {"question_based_copy":{"rating":"poor|fair|good","finding":"specific observation"},"faq_presence":{"rating":"poor|fair|good","finding":"specific observation"},"geo_signals":{"rating":"poor|fair|good","finding":"specific observation"},"service_specificity":{"rating":"poor|fair|good","finding":"specific observation"},"social_proof":{"rating":"poor|fair|good","finding":"specific observation"}}`);
+    var content=await callClaude('Rate GEO content signals for: "'+name+'" | '+svc+' | '+loc+'. Use poor/fair/good. Findings max 80 chars. Return JSON: {"question_based_copy":{"rating":"poor","finding":"finding"},"faq_presence":{"rating":"poor","finding":"finding"},"geo_signals":{"rating":"poor","finding":"finding"},"service_specificity":{"rating":"poor","finding":"finding"},"social_proof":{"rating":"poor","finding":"finding"}}');
     setStep('content','done','Content analysis complete');
 
     setStep('entity','running');
-    const entity=await callClaude(`Assess entity consistency and directory presence for GEO.
-Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate Google Business presence, LinkedIn, industry directories, name/location/service consistency.
-Return JSON only: {"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","missing_platforms":["platform1","platform2","platform3"],"gaps":["gap1","gap2"]}`);
+    var entity=await callClaude('Rate GEO entity signals for: "'+name+'" | '+svc+' | '+loc+'. Use poor/fair/good. Strings max 80 chars. Return JSON: {"overall_rating":"poor","key_finding":"finding","missing_platforms":["p1","p2","p3"],"gaps":["gap1","gap2"]}');
     setStep('entity','done','Entity check complete');
 
     setStep('authority','running');
-    const authority=await callClaude(`Assess authority and citation signals for GEO.
-Business: "${name}" | URL: "${url}" | Service: "${svc}" | Location: "${loc}"
-Evaluate citeable content, third-party mentions, expert positioning.
-Return JSON only: {"overall_rating":"poor|fair|good","key_finding":"1-2 sentence main finding","citeable_content":{"exists":false,"detail":"what exists or is missing"},"expert_positioning":{"rating":"poor|fair|good","detail":"assessment"}}`);
+    var authority=await callClaude('Rate GEO authority signals for: "'+name+'" | '+svc+' | '+loc+'. Use poor/fair/good. Strings max 80 chars. Return JSON: {"overall_rating":"poor","key_finding":"finding","citeable_content":{"exists":false,"detail":"detail"},"expert_positioning":{"rating":"poor","detail":"detail"}}');
     setStep('authority','done','Authority check complete');
 
-    // Calculate real scores
-    const scores = calcScores(perpData, content, entity, authority);
+    var scores=calcScores(perpData,content,entity,authority);
 
     setStep('report','running');
-    const report=await callClaude(`Create a GEO audit report for a client debrief.
-Business: "${name}" | Location: "${loc}" | Service: "${svc}"
-CALCULATED SCORES (use these exact numbers): Overall: ${scores.total}/100 | Visibility: ${scores.visScore}/40 | Content: ${scores.contentScore}/25 | Entity: ${scores.entityScore}/20 | Authority: ${scores.authScore}/15
-Perplexity: appeared in ${perpData.appearCount}/6 real searches.
-Sample Perplexity answer: "${stripMd(r1.answer.slice(0,300))}"
-Be specific, honest, and actionable for the business owner.
-Return JSON only: {"headline":"one punchy honest sentence about their GEO situation","top_gaps":[{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail for this business"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"},{"severity":"critical|moderate|minor","title":"gap title","detail":"specific detail"}],"recommendations":["Specific action 1 — what to do and why","Specific action 2","Specific action 3","Specific action 4"],"opportunity_statement":"2-3 sentences on what improved GEO visibility could mean for this specific business"}`);
+    var snippet=stripMd(r1.answer.slice(0,200));
+    var gapsData=await callClaude('GEO gaps for "'+name+'" ('+svc+', '+loc+'). Perplexity: '+appearCount+'/6. All strings max 100 chars. Return JSON: {"headline":"one sentence","top_gaps":[{"severity":"critical","title":"title","detail":"detail"},{"severity":"critical","title":"title","detail":"detail"},{"severity":"moderate","title":"title","detail":"detail"}]}');
+    var recsData=await callClaude('GEO recommendations for "'+name+'" ('+svc+', '+loc+'). Perplexity: '+appearCount+'/6. Each string max 100 chars. Return JSON: {"recommendations":["rec1","rec2","rec3","rec4"],"opportunity_statement":"2 sentences"}');
+    var report=Object.assign({},gapsData,recsData);
     setStep('report','done','Report ready');
 
-    renderReport({name,loc,svc,perpData,content,entity,authority,report,scores,q1,r1});
-
+    renderReport(name,loc,svc,perpData,content,entity,authority,report,scores,r1);
   }catch(err){
-    STEPS.forEach(s=>{if(ss[s.id]==='running')setStep(s.id,'err');});
+    STEPS.forEach(function(s){if(ss[s.id]==='running')setStep(s.id,'err');});
     document.getElementById('err-sec').style.display='block';
     document.getElementById('prog-sec').style.display='none';
-    document.getElementById('err-sec').innerHTML=`<div class="errbox"><strong>Something went wrong:</strong><br>${err.message}<br><br>Check your connection and try again.</div><button class="action-btn" onclick="resetForm()">&#8635; Try again</button>`;
+    document.getElementById('err-sec').innerHTML='<div class="errbox"><strong>Something went wrong:</strong><br>'+err.message+'<br><br>Try again.</div><button class="action-btn" onclick="resetForm()">&#8635; Try again</button>';
   }
 }
 
-function sc(s){
-  if(s>=65)return{bg:'#e8f5e9',tc:'#1b5e20'};
-  if(s>=40)return{bg:'#fff8e1',tc:'#7f5600'};
-  return{bg:'#fdecea',tc:'#b71c1c'};
-}
+function sc(s){return s>=65?{bg:'#e8f5e9',tc:'#1b5e20'}:s>=40?{bg:'#fff8e1',tc:'#7f5600'}:{bg:'#fdecea',tc:'#b71c1c'};}
 function tcls(r){return r==='good'?'tg':r==='fair'?'ta':'tr';}
-function dcls(sev){return sev==='critical'?'dr':sev==='moderate'?'da':'dg';}
+function dcls(s){return s==='critical'?'dr':s==='moderate'?'da':'dg';}
 
-function renderReport({name,loc,svc,perpData,content,entity,authority,report,scores,q1,r1}){
-  const rs=document.getElementById('report-sec');
+function copyPrompt(text){
+  navigator.clipboard.writeText(text).then(function(){alert('Prompt copied!');}).catch(function(){
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Prompt copied!');
+  });
+}
+
+function renderReport(name,loc,svc,perpData,content,entity,authority,report,scores,r1){
+  var rs=document.getElementById('report-sec');
   rs.style.display='block';
   document.getElementById('prog-sec').style.display='none';
-  const c=sc(scores.total);
-  const cv=sc(scores.visScore/40*100);
-  const cc=sc(scores.contentScore/25*100);
-  const ce=sc(scores.entityScore/20*100);
-  const ca=sc(scores.authScore/15*100);
+  var c=sc(scores.total),cv=sc(scores.visScore/40*100),cc=sc(scores.contentScore/25*100),ce=sc(scores.entityScore/20*100);
+  var today=new Date().toLocaleDateString('en-CA',{year:'numeric',month:'long',day:'numeric'});
+  var manualPrompt='I am looking for recommendations for the best '+svc+' in '+loc+'. Who are the top options, what do people say about them, and who would you recommend I contact first?';
 
-  const visChips=perpData.queries.map((q,i)=>`
-    <div class="vchip">
-      <div class="vcquery">${q.q}</div>
-      <div class="vcval ${q.appears?'vyes':'vno'}">${q.appears?'&#10003; Found':'&#10007; Not found'}</div>
-    </div>`).join('');
+  var visChips=perpData.queries.map(function(q,i){
+    return '<div class="vchip"><div class="vcquery">'+q.q+'</div><div class="vcval '+(q.appears?'vyes':'vno')+'">'+(q.appears?'&#10003; Found':'&#10007; Not found')+'</div></div>';
+  }).join('');
 
-  const gaps=report.top_gaps.map(g=>`<div class="finding"><div class="fhead"><div class="dot ${dcls(g.severity)}"></div><div class="ftitle">${g.title} <span class="tag ${g.severity==='critical'?'tr':g.severity==='moderate'?'ta':'tg'}">${g.severity}</span></div></div><div class="fbody">${g.detail}</div></div>`).join('');
-  const recs=report.recommendations.map((r,i)=>`<li><div class="rnum">${i+1}</div><span>${r}</span></li>`).join('');
-  const snippet=stripMd(r1.answer.slice(0,280))+(r1.answer.length>280?'...':'');
-  const today=new Date().toLocaleDateString('en-CA',{year:'numeric',month:'long',day:'numeric'});
+  var gaps=report.top_gaps.map(function(g){
+    return '<div class="finding"><div class="fhead"><div class="dot '+dcls(g.severity)+'"></div><div class="ftitle">'+g.title+' <span class="tag '+(g.severity==='critical'?'tr':g.severity==='moderate'?'ta':'tg')+'">'+g.severity+'</span></div></div><div class="fbody">'+g.detail+'</div></div>';
+  }).join('');
 
-  rs.innerHTML=`
-    <div class="card">
-      <div class="section-label">GEO Scout report — ${name} &nbsp;<span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:#999">${today}</span></div>
-      <div class="score-row">
-        <div class="score-circ" style="background:${c.bg}">
-          <div class="score-n" style="color:${c.tc}">${scores.total}</div>
-          <div class="score-d" style="color:${c.tc}">/100</div>
-        </div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:600;color:#232323;margin-bottom:5px">${report.headline}</div>
-          <div style="font-size:12px;color:#666">${loc} &middot; ${svc}</div>
-        </div>
-      </div>
-      <div class="score-breakdown">
-        <div class="sbar"><div class="sbar-label">Visibility</div><div class="sbar-val" style="color:${cv.tc}">${scores.visScore}<span style="font-size:10px;font-weight:400">/40</span></div></div>
-        <div class="sbar"><div class="sbar-label">Content</div><div class="sbar-val" style="color:${cc.tc}">${scores.contentScore}<span style="font-size:10px;font-weight:400">/25</span></div></div>
-        <div class="sbar"><div class="sbar-label">Entity</div><div class="sbar-val" style="color:${ce.tc}">${scores.entityScore}<span style="font-size:10px;font-weight:400">/20</span></div></div>
-      </div>
-      <div class="divider" style="margin:0.75rem 0"></div>
-      <div style="font-size:13px;font-weight:600;margin-bottom:6px">Perplexity visibility <span class="badge-live">live data</span></div>
-      <div style="font-size:12px;color:#666;margin-bottom:8px">Appeared in <strong>${perpData.appearCount}</strong> of 6 real Perplexity searches</div>
-      <div class="vis-grid">${visChips}</div>
-      <div class="quote-box">${snippet}</div>
-    </div>
+  var recs=report.recommendations.map(function(r,i){
+    return '<li><div class="rnum">'+(i+1)+'</div><span>'+r+'</span></li>';
+  }).join('');
 
-    <div class="card">
-      <div class="section-label">Key gaps</div>
-      ${gaps}
-    </div>
+  var snippet=stripMd(r1.answer.slice(0,280))+(r1.answer.length>280?'...':'');
 
-    <div class="card">
-      <div class="section-label">Content & entity signals</div>
-      <div class="tags-wrap">
-        <span class="tag ${tcls(content.question_based_copy.rating)}">Question copy: ${content.question_based_copy.rating}</span>
-        <span class="tag ${tcls(content.faq_presence.rating)}">FAQ: ${content.faq_presence.rating}</span>
-        <span class="tag ${tcls(content.geo_signals.rating)}">Location signals: ${content.geo_signals.rating}</span>
-        <span class="tag ${tcls(content.social_proof.rating)}">Social proof: ${content.social_proof.rating}</span>
-        <span class="tag ${tcls(entity.overall_rating)}">Entity consistency: ${entity.overall_rating}</span>
-        <span class="tag ${tcls(authority.expert_positioning.rating)}">Expert positioning: ${authority.expert_positioning.rating}</span>
-      </div>
-      <div style="font-size:12px;color:#666;line-height:1.6">${entity.key_finding}</div>
-    </div>
+  var manualSection=['ChatGPT|https://chat.openai.com','Gemini|https://gemini.google.com','Google|https://www.google.com/search?q=best+'+encodeURIComponent(svc)+'+in+'+encodeURIComponent(loc)].map(function(item){
+    var parts=item.split('|'),platform=parts[0],url=parts[1];
+    return '<div class="manual-block"><div class="manual-block-title">'+platform+'</div><div class="manual-prompt">"'+manualPrompt+'"</div><div class="manual-actions"><button class="copy-btn" onclick="copyPrompt(\''+manualPrompt.replace(/'/g,"\\'")+'\')"">Copy prompt</button><a class="open-btn" href="'+url+'" target="_blank">Open '+platform+' &#8599;</a></div></div>';
+  }).join('');
 
-    <div class="card">
-      <div class="section-label">Recommendations</div>
-      <ul class="reclist">${recs}</ul>
-    </div>
-
-    <div class="opp-card">
-      <div class="section-label" style="margin-bottom:0.5rem">The opportunity</div>
-      <div style="font-size:13px;color:#232323;line-height:1.7">${report.opportunity_statement}</div>
-    </div>
-
-    <div class="card">
-      <div class="section-label">Manual checks — complete the picture</div>
-      <div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:12px">Perplexity is automated above. Run these three prompts manually before your debrief to get the full AI visibility picture. Copy each prompt, paste it in, and screenshot the result.</div>
-      ${['ChatGPT','Gemini','Google'].map(platform=>`
-        <div style="margin-bottom:14px;padding:12px;background:var(--light);border-radius:8px">
-          <div style="font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px">${platform}</div>
-          <div style="font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:8px;font-style:italic">"I'm looking for recommendations for the best ${svc} in ${loc}. Who are the top options, what do people say about them, and who would you recommend I contact first?"</div>
-          <button onclick="navigator.clipboard.writeText('I\\'m looking for recommendations for the best ${svc} in ${loc}. Who are the top options, what do people say about them, and who would you recommend I contact first?')" style="font-size:11px;padding:4px 10px;background:#fff;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--dark)">Copy prompt</button>
-          ${platform==='ChatGPT'?'<a href="https://chat.openai.com" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open ChatGPT ↗</a>':''}
-          ${platform==='Gemini'?'<a href="https://gemini.google.com" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open Gemini ↗</a>':''}
-          ${platform==='Google'?'<a href="https://www.google.com/search?q=best+${encodeURIComponent(svc)}+in+${encodeURIComponent(loc)}" target="_blank" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;text-decoration:none;margin-left:6px">Open Google ↗</a>':''}
-        </div>`).join('')}
-    </div>
-
-    <button class="action-btn print-btn" onclick="window.print()">&#x1F4BE; Save as PDF / Print report</button>
-    <button class="action-btn" onclick="resetForm()">&#8635; Run another audit</button>
-  `;
+  rs.innerHTML=
+    '<div class="card">'+
+      '<div class="section-label">GEO Scout report — '+name+' <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:#999">'+today+'</span></div>'+
+      '<div class="score-row">'+
+        '<div class="score-circ" style="background:'+c.bg+'"><div class="score-n" style="color:'+c.tc+'">'+scores.total+'</div><div class="score-d" style="color:'+c.tc+'">/100</div></div>'+
+        '<div style="flex:1"><div style="font-size:15px;font-weight:600;color:#232323;margin-bottom:5px">'+report.headline+'</div><div style="font-size:12px;color:#666">'+loc+' &middot; '+svc+'</div></div>'+
+      '</div>'+
+      '<div class="score-breakdown">'+
+        '<div class="sbar"><div class="sbar-label">Visibility</div><div class="sbar-val" style="color:'+cv.tc+'">'+scores.visScore+'<span style="font-size:10px;font-weight:400">/40</span></div></div>'+
+        '<div class="sbar"><div class="sbar-label">Content</div><div class="sbar-val" style="color:'+cc.tc+'">'+scores.contentScore+'<span style="font-size:10px;font-weight:400">/25</span></div></div>'+
+        '<div class="sbar"><div class="sbar-label">Entity</div><div class="sbar-val" style="color:'+ce.tc+'">'+scores.entityScore+'<span style="font-size:10px;font-weight:400">/20</span></div></div>'+
+      '</div>'+
+      '<div class="divider" style="margin:0.75rem 0"></div>'+
+      '<div style="font-size:13px;font-weight:600;margin-bottom:6px">Perplexity visibility <span class="badge-live">live data</span></div>'+
+      '<div style="font-size:12px;color:#666;margin-bottom:8px">Appeared in <strong>'+perpData.appearCount+'</strong> of 6 real Perplexity searches</div>'+
+      '<div class="vis-grid">'+visChips+'</div>'+
+      '<div class="quote-box">'+snippet+'</div>'+
+    '</div>'+
+    '<div class="card"><div class="section-label">Key gaps</div>'+gaps+'</div>'+
+    '<div class="card">'+
+      '<div class="section-label">Content & entity signals</div>'+
+      '<div class="tags-wrap">'+
+        '<span class="tag '+tcls(content.question_based_copy.rating)+'">Question copy: '+content.question_based_copy.rating+'</span>'+
+        '<span class="tag '+tcls(content.faq_presence.rating)+'">FAQ: '+content.faq_presence.rating+'</span>'+
+        '<span class="tag '+tcls(content.geo_signals.rating)+'">Location signals: '+content.geo_signals.rating+'</span>'+
+        '<span class="tag '+tcls(content.social_proof.rating)+'">Social proof: '+content.social_proof.rating+'</span>'+
+        '<span class="tag '+tcls(entity.overall_rating)+'">Entity consistency: '+entity.overall_rating+'</span>'+
+        '<span class="tag '+tcls(authority.expert_positioning.rating)+'">Expert positioning: '+authority.expert_positioning.rating+'</span>'+
+      '</div>'+
+      '<div style="font-size:12px;color:#666;line-height:1.6">'+entity.key_finding+'</div>'+
+    '</div>'+
+    '<div class="card"><div class="section-label">Recommendations</div><ul class="reclist">'+recs+'</ul></div>'+
+    '<div class="opp-card"><div class="section-label" style="margin-bottom:0.5rem">The opportunity</div><div style="font-size:13px;color:#232323;line-height:1.7">'+report.opportunity_statement+'</div></div>'+
+    '<div class="card">'+
+      '<div class="section-label">Manual checks — complete the picture</div>'+
+      '<div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:12px">Perplexity is automated above. Run these prompts in ChatGPT, Gemini, and Google before your debrief to get the full picture.</div>'+
+      manualSection+
+    '</div>'+
+    '<button class="action-btn print-btn" onclick="window.print()">&#x1F4BE; Save as PDF / Print report</button>'+
+    '<button class="action-btn" onclick="resetForm()">&#8635; Run another audit</button>';
 }
 
 function resetForm(){
@@ -387,7 +293,7 @@ function resetForm(){
   document.getElementById('prog-sec').style.display='none';
   document.getElementById('report-sec').style.display='none';
   document.getElementById('err-sec').style.display='none';
-  STEPS.forEach(s=>ss[s.id]='wait');
+  STEPS.forEach(function(s){ss[s.id]='wait';});
 }
 </script>
 </body>
